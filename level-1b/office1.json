@@ -1,0 +1,390 @@
+{
+  "paragraphs": [
+    {
+      "title": "",
+      "text": "%pyspark\nfrom pyspark import SparkFiles\n\nfrom pyspark.ml.feature import Tokenizer\nfrom pyspark.sql.functions import col, udf\nfrom pyspark.sql.types import IntegerType\n\n# Load in user_data.csv from S3 into a DataFrame\nurl \u003d \"https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Office_Products_v1_00.tsv.gz\"\nspark.sparkContext.addFile(url)\n\noffice_data_df \u003d spark.read.option(\u0027header\u0027, \u0027true\u0027).csv(SparkFiles.get(\"amazon_reviews_us_Office_Products_v1_00.tsv.gz\"), inferSchema\u003dTrue, sep\u003d\u0027\\t\u0027)\noffice_data_df.show(10)",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:38:21.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\n|marketplace|customer_id|     review_id|product_id|product_parent|       product_title|product_category|star_rating|helpful_votes|total_votes|vine|verified_purchase|     review_headline|         review_body|        review_date|\n+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\n|         US|   43081963|R18RVCKGH1SSI9|B001BM2MAC|     307809868|Scotch Cushion Wr...| Office Products|          5|            0|          0|   N|                Y|          Five Stars|      Great product.|2015-08-31 00:00:00|\n|         US|   10951564|R3L4L6LW1PUOFY|B00DZYEXPQ|      75004341|Dust-Off Compress...| Office Products|          5|            0|          1|   N|                Y|Phffffffft, Phfff...|What\u0027s to say abo...|2015-08-31 00:00:00|\n|         US|   21143145|R2J8AWXWTDX2TF|B00RTMUHDW|     529689027|Amram Tagger Stan...| Office Products|          5|            0|          0|   N|                Y|but I am sure I w...|Haven\u0027t used yet,...|2015-08-31 00:00:00|\n|         US|   52782374|R1PR37BR7G3M6A|B00D7H8XB6|     868449945|AmazonBasics 12-S...| Office Products|          1|            2|          3|   N|                Y|and the shredder ...|Although this was...|2015-08-31 00:00:00|\n|         US|   24045652|R3BDDDZMZBZDPU|B001XCWP34|      33521401|Derwent Colored P...| Office Products|          4|            0|          0|   N|                Y|          Four Stars|Gorgeous colors a...|2015-08-31 00:00:00|\n|         US|   21751234| R8T6MO75ND212|B004J2NBCO|     214932869|Quartet Magnetic ...| Office Products|          5|            0|          0|   N|                Y|          Five Stars|Perfect for plann...|2015-08-31 00:00:00|\n|         US|    9109358|R2YWMQT2V11XYZ|B00MOPAG8K|     863351797|KITLEX40X2592UNV2...| Office Products|          5|            0|          0|   N|                N|          Five Stars|Gold plated fuser...|2015-08-31 00:00:00|\n|         US|    9967215|R1V2HYL6OI9V39|B003AHIK7U|     383470576|Bible Dry Highlig...| Office Products|          5|            6|          6|   N|                Y|Won\u0027t bleed throu...|I have used these...|2015-08-31 00:00:00|\n|         US|   11234247|R3BLQBKUNXGFS4|B006TKH2RO|     999128878|Parker Ingenuity ...| Office Products|          5|            0|          0|   N|                Y|           Nice pen!|Heavy pen that wr...|2015-08-31 00:00:00|\n|         US|   12731488|R17MOWJCAR9Y8Q|B00W61M9K0|     622066861| RFID Card Protector| Office Products|          5|            0|          0|   N|                Y| Credit card sleeves|Not sure if they ...|2015-08-31 00:00:00|\n+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\nonly showing top 10 rows\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191213-203123_1536022131",
+      "dateCreated": "2019-12-13 20:31:23.000",
+      "dateStarted": "2019-12-22 05:36:39.160",
+      "dateFinished": "2019-12-22 05:38:21.283",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\noffice_data_df.count()\n",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:38:57.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "2642434",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-003815_479692863",
+      "dateCreated": "2019-12-22 00:38:15.000",
+      "dateStarted": "2019-12-22 05:38:40.912",
+      "dateFinished": "2019-12-22 05:38:57.803",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nreview_id_df \u003d office_data_df.select([\"review_id\", \"customer_id\", \"product_id\", \"product_parent\", \"review_date\"])\nreview_id_df.show(10)",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:39:02.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+--------------+-----------+----------+--------------+-------------------+\n|     review_id|customer_id|product_id|product_parent|        review_date|\n+--------------+-----------+----------+--------------+-------------------+\n|R18RVCKGH1SSI9|   43081963|B001BM2MAC|     307809868|2015-08-31 00:00:00|\n|R3L4L6LW1PUOFY|   10951564|B00DZYEXPQ|      75004341|2015-08-31 00:00:00|\n|R2J8AWXWTDX2TF|   21143145|B00RTMUHDW|     529689027|2015-08-31 00:00:00|\n|R1PR37BR7G3M6A|   52782374|B00D7H8XB6|     868449945|2015-08-31 00:00:00|\n|R3BDDDZMZBZDPU|   24045652|B001XCWP34|      33521401|2015-08-31 00:00:00|\n| R8T6MO75ND212|   21751234|B004J2NBCO|     214932869|2015-08-31 00:00:00|\n|R2YWMQT2V11XYZ|    9109358|B00MOPAG8K|     863351797|2015-08-31 00:00:00|\n|R1V2HYL6OI9V39|    9967215|B003AHIK7U|     383470576|2015-08-31 00:00:00|\n|R3BLQBKUNXGFS4|   11234247|B006TKH2RO|     999128878|2015-08-31 00:00:00|\n|R17MOWJCAR9Y8Q|   12731488|B00W61M9K0|     622066861|2015-08-31 00:00:00|\n+--------------+-----------+----------+--------------+-------------------+\nonly showing top 10 rows\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-003816_714044229",
+      "dateCreated": "2019-12-22 00:38:16.000",
+      "dateStarted": "2019-12-22 05:39:02.247",
+      "dateFinished": "2019-12-22 05:39:02.459",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nproducts_df \u003d office_data_df.select([\"product_id\", \"product_title\"])\nproducts_df.show(10)",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:39:07.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+----------+--------------------+\n|product_id|       product_title|\n+----------+--------------------+\n|B001BM2MAC|Scotch Cushion Wr...|\n|B00DZYEXPQ|Dust-Off Compress...|\n|B00RTMUHDW|Amram Tagger Stan...|\n|B00D7H8XB6|AmazonBasics 12-S...|\n|B001XCWP34|Derwent Colored P...|\n|B004J2NBCO|Quartet Magnetic ...|\n|B00MOPAG8K|KITLEX40X2592UNV2...|\n|B003AHIK7U|Bible Dry Highlig...|\n|B006TKH2RO|Parker Ingenuity ...|\n|B00W61M9K0| RFID Card Protector|\n+----------+--------------------+\nonly showing top 10 rows\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-003818_859288204",
+      "dateCreated": "2019-12-22 00:38:18.000",
+      "dateStarted": "2019-12-22 05:39:07.118",
+      "dateFinished": "2019-12-22 05:39:07.330",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\ncustomers_df \u003d office_data_df.select([\"customer_id\"])\ncustomers_df \u003d customers_df.groupby(\"customer_id\").count()\ncustomers_df \u003d customers_df.selectExpr(\"customer_id as customer_id\", \"count as customer_count\")\ncustomers_df.show()",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:39:32.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+-----------+--------------+\n|customer_id|customer_count|\n+-----------+--------------+\n|   43622307|             1|\n|   33972406|             1|\n|     108460|             1|\n|   43515569|             1|\n|     132406|             1|\n|   42560427|             1|\n|    1673863|             2|\n|   14552054|             1|\n|   45632184|             1|\n|   14703850|             2|\n|   35768925|             3|\n|   45640757|            28|\n|   33194403|             1|\n|   39383689|             1|\n|   10645124|             1|\n|   52512151|            10|\n|   14646714|             1|\n|   38659596|             1|\n|   15634680|             1|\n|   44178035|             1|\n+-----------+--------------+\nonly showing top 20 rows\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-003819_878604494",
+      "dateCreated": "2019-12-22 00:38:19.000",
+      "dateStarted": "2019-12-22 05:39:13.357",
+      "dateFinished": "2019-12-22 05:39:32.550",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\n# Configure settings for RDS\nmode \u003d \"overwrite\"\njdbc_url\u003d\"jdbc:postgresql://office-products.cghn2wjqoswm.us-east-2.rds.amazonaws.com:5432/ecommerce\"\nconfig \u003d {\"user\":\"postgres\", \n          \"password\": \"Louie091410!\", \n          \"driver\":\"org.postgresql.Driver\"}",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:39:39.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-004310_478159408",
+      "dateCreated": "2019-12-22 00:43:10.000",
+      "dateStarted": "2019-12-22 05:39:39.109",
+      "dateFinished": "2019-12-22 05:39:39.219",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nreview_id_df.write.jdbc(url\u003djdbc_url, table\u003d\"review_id_table\", mode\u003dmode, properties\u003dconfig)",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:46:28.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {}
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-054607_634102748",
+      "dateCreated": "2019-12-22 05:46:07.000",
+      "dateStarted": "2019-12-22 05:48:16.000",
+      "dateFinished": "2019-12-22 05:48:16.000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\r\ncustomers_df.write.jdbc(url\u003djdbc_url, table\u003d\u0027customers_table\u0027, mode\u003dmode, properties\u003dconfig)",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:46:39.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {}
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-054607_262209528",
+      "dateCreated": "2019-12-22 05:46:07.000",
+      "dateStarted": "2019-12-22 05:48:16.000",
+      "dateFinished": "2019-12-22 05:48:16.000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\r\nproducts_df.write.jdbc(url\u003djdbc_url, table\u003d\u0027products_table\u0027, mode\u003dmode, properties\u003dconfig)",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:46:53.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {}
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-054606_1870118375",
+      "dateCreated": "2019-12-22 05:46:06.000",
+      "dateStarted": "2019-12-22 05:48:16.000",
+      "dateFinished": "2019-12-22 05:48:16.000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "",
+      "user": "",
+      "dateUpdated": "2019-12-22 05:47:25.000",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-054725_1213406550",
+      "dateCreated": "2019-12-22 05:47:25.000",
+      "dateStarted": "2019-12-22 05:48:16.000",
+      "dateFinished": "2019-12-22 05:48:16.000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    }
+  ],
+  "name": "Big Data Challenge Level 1b",
+  "id": "a99c29338460457d887c7d2ff51f9dd0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {},
+  "info": {}
+}

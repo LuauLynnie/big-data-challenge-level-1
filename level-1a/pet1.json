@@ -1,0 +1,421 @@
+{
+  "paragraphs": [
+    {
+      "title": "",
+      "text": "%pyspark\nfrom pyspark import SparkFiles\n# Load in user_data.csv from S3 into a DataFrame\nurl \u003d \"https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Pet_Products_v1_00.tsv.gz\"\nspark.sparkContext.addFile(url)\n\npet_data_df \u003d spark.read.option(\u0027header\u0027, \u0027true\u0027).csv(SparkFiles.get(\"amazon_reviews_us_Pet_Products_v1_00.tsv.gz\"), inferSchema\u003dTrue, sep\u003d\u0027\\t\u0027)\npet_data_df.show(10)",
+      "user": "",
+      "dateUpdated": "2019-12-21 23:58:43.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\n|marketplace|customer_id|     review_id|product_id|product_parent|       product_title|product_category|star_rating|helpful_votes|total_votes|vine|verified_purchase|     review_headline|         review_body|        review_date|\n+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\n|         US|   28794885| REAKC26P07MDN|B00Q0K9604|     510387886|(8-Pack) EZwhelp ...|    Pet Products|          5|            0|          0|   N|                Y|A great purchase ...|Best belly bands ...|2015-08-31 00:00:00|\n|         US|   11488901|R3NU7OMZ4HQIEG|B00MBW5O9W|     912374672|Warren Eckstein\u0027s...|    Pet Products|          2|            0|          1|   N|                Y|My dogs love Hugs...|My dogs love Hugs...|2015-08-31 00:00:00|\n|         US|   43214993|R14QJW3XF8QO1P|B0084OHUIO|     902215727|Tyson\u0027s True Chew...|    Pet Products|          5|            0|          0|   N|                Y|I have been purch...|I have been purch...|2015-08-31 00:00:00|\n|         US|   12835065|R2HB7AX0394ZGY|B001GS71K2|     568880110|Soft Side Pet Cra...|    Pet Products|          5|            0|          0|   N|                Y|it is easy to ope...|It is extremely w...|2015-08-31 00:00:00|\n|         US|   26334022| RGKMPDQGSAHR3|B004ABH1LG|     692846826|EliteField 3-Door...|    Pet Products|          5|            0|          0|   N|                Y|           Dog crate|Worked really wel...|2015-08-31 00:00:00|\n|         US|   22283621|R1DJCVPQGCV66E|B00AX0LFM4|     590674141|Carlson 68-Inch W...|    Pet Products|          5|            0|          0|   N|                Y|          Five Stars|I love my gates! ...|2015-08-31 00:00:00|\n|         US|   14469895|R3V52EAWLPBFQG|B00DQFZGZ0|     688538603|Dog Seat Cover Wi...|    Pet Products|          3|            0|          0|   N|                Y|Seat belt tugs on...|Didn\u0027t quite work...|2015-08-31 00:00:00|\n|         US|   50896354|R3DKO8J1J28QBI|B00DIRF9US|     742358789|The Bird Catcher ...|    Pet Products|          2|            0|          0|   N|                Y|Great Pole, but S...|I had the origina...|2015-08-31 00:00:00|\n|         US|   18440567| R764DBXGRNECG|B00JRCBFUG|     869798483|Cat Bed - Purrfec...|    Pet Products|          5|            1|          1|   N|                N|     My cat loves it|The pad is very s...|2015-08-31 00:00:00|\n|         US|   50502362| RW1853GAT0Z9F|B000L3XYZ4|     501118658|PetSafe Drinkwell...|    Pet Products|          5|            0|          0|   N|                Y|          Five Stars|My cat drinks mor...|2015-08-31 00:00:00|\n+-----------+-----------+--------------+----------+--------------+--------------------+----------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-------------------+\nonly showing top 10 rows\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191215-214309_755545076",
+      "dateCreated": "2019-12-15 21:43:09.000",
+      "dateStarted": "2019-12-21 23:57:14.621",
+      "dateFinished": "2019-12-21 23:58:43.370",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\npet_data_df.count()\n",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:00:16.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "2643619",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-162920_1643992958",
+      "dateCreated": "2019-12-16 16:29:20.000",
+      "dateStarted": "2019-12-22 00:00:00.579",
+      "dateFinished": "2019-12-22 00:00:16.066",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nreview_id_df \u003d pet_data_df.select([\"review_id\", \"customer_id\", \"product_id\", \"product_parent\", \"review_date\"])\nreview_id_df.show(10)",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:00:28.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+--------------+-----------+----------+--------------+-------------------+\n|     review_id|customer_id|product_id|product_parent|        review_date|\n+--------------+-----------+----------+--------------+-------------------+\n| REAKC26P07MDN|   28794885|B00Q0K9604|     510387886|2015-08-31 00:00:00|\n|R3NU7OMZ4HQIEG|   11488901|B00MBW5O9W|     912374672|2015-08-31 00:00:00|\n|R14QJW3XF8QO1P|   43214993|B0084OHUIO|     902215727|2015-08-31 00:00:00|\n|R2HB7AX0394ZGY|   12835065|B001GS71K2|     568880110|2015-08-31 00:00:00|\n| RGKMPDQGSAHR3|   26334022|B004ABH1LG|     692846826|2015-08-31 00:00:00|\n|R1DJCVPQGCV66E|   22283621|B00AX0LFM4|     590674141|2015-08-31 00:00:00|\n|R3V52EAWLPBFQG|   14469895|B00DQFZGZ0|     688538603|2015-08-31 00:00:00|\n|R3DKO8J1J28QBI|   50896354|B00DIRF9US|     742358789|2015-08-31 00:00:00|\n| R764DBXGRNECG|   18440567|B00JRCBFUG|     869798483|2015-08-31 00:00:00|\n| RW1853GAT0Z9F|   50502362|B000L3XYZ4|     501118658|2015-08-31 00:00:00|\n+--------------+-----------+----------+--------------+-------------------+\nonly showing top 10 rows\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-225939_1401036139",
+      "dateCreated": "2019-12-16 22:59:39.000",
+      "dateStarted": "2019-12-22 00:00:27.880",
+      "dateFinished": "2019-12-22 00:00:28.144",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nproducts_df \u003d pet_data_df.select([\"product_id\", \"product_title\"])\nproducts_df.show(10)\n",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:00:35.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+----------+--------------------+\n|product_id|       product_title|\n+----------+--------------------+\n|B00Q0K9604|(8-Pack) EZwhelp ...|\n|B00MBW5O9W|Warren Eckstein\u0027s...|\n|B0084OHUIO|Tyson\u0027s True Chew...|\n|B001GS71K2|Soft Side Pet Cra...|\n|B004ABH1LG|EliteField 3-Door...|\n|B00AX0LFM4|Carlson 68-Inch W...|\n|B00DQFZGZ0|Dog Seat Cover Wi...|\n|B00DIRF9US|The Bird Catcher ...|\n|B00JRCBFUG|Cat Bed - Purrfec...|\n|B000L3XYZ4|PetSafe Drinkwell...|\n+----------+--------------------+\nonly showing top 10 rows\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-231319_997512803",
+      "dateCreated": "2019-12-16 23:13:19.000",
+      "dateStarted": "2019-12-22 00:00:35.002",
+      "dateFinished": "2019-12-22 00:00:35.165",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\ncustomers_df \u003d pet_data_df.select([\"customer_id\"])\ncustomers_df \u003d customers_df.groupby(\"customer_id\").count()\ncustomers_df \u003d customers_df.selectExpr(\"customer_id as customer_id\", \"count as customer_count\")\ncustomers_df.show()",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:00:58.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "+-----------+--------------+\n|customer_id|customer_count|\n+-----------+--------------+\n|   10270641|             1|\n|   18365872|             1|\n|   16711087|             1|\n|   10742726|             2|\n|   41169638|             1|\n|   43622307|             1|\n|   24540309|             2|\n|   28258386|             1|\n|   35329257|             2|\n|   14552054|             1|\n|   14529507|             5|\n|   45392827|             5|\n|   47282953|             1|\n|    8201930|             1|\n|   20109760|             2|\n|   16405801|             4|\n|   15056685|            21|\n|   20840575|             2|\n|   39048303|             1|\n|    5596610|             1|\n+-----------+--------------+\nonly showing top 20 rows\n\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191221-173654_1513322521",
+      "dateCreated": "2019-12-21 17:36:54.000",
+      "dateStarted": "2019-12-22 00:00:40.500",
+      "dateFinished": "2019-12-22 00:00:58.248",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\n# Configure settings for RDS\nmode \u003d \"overwrite\"\njdbc_url\u003d\"jdbc:postgresql://pets-products.cghn2wjqoswm.us-east-2.rds.amazonaws.com:5432/ecommerce\"\nconfig \u003d {\"user\":\"postgres\", \n          \"password\": \"Louie091410!\", \n          \"driver\":\"org.postgresql.Driver\"}",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:01:15.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-231808_864508604",
+      "dateCreated": "2019-12-16 23:18:08.000",
+      "dateStarted": "2019-12-22 00:01:15.284",
+      "dateFinished": "2019-12-22 00:01:15.394",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\nreview_id_df.write.jdbc(url\u003djdbc_url, table\u003d\"review_id_table\", mode\u003dmode, properties\u003dconfig)",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:15:12.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191216-231807_1214321481",
+      "dateCreated": "2019-12-16 23:18:07.000",
+      "dateStarted": "2019-12-22 00:01:21.711",
+      "dateFinished": "2019-12-22 00:15:12.666",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\r\nproducts_df.write.jdbc(url\u003djdbc_url, table\u003d\u0027products_table\u0027, mode\u003dmode, properties\u003dconfig)\r\n",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:30:44.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [
+          {}
+        ],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191219-025254_1208921536",
+      "dateCreated": "2019-12-19 02:52:54.000",
+      "dateStarted": "2019-12-22 00:17:11.259",
+      "dateFinished": "2019-12-22 00:30:44.504",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "%pyspark\r\ncustomers_df.write.jdbc(url\u003djdbc_url, table\u003d\u0027customers_table\u0027, mode\u003dmode, properties\u003dconfig)\r\n",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:35:42.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "spark.pyspark",
+          "profile": "pyspark",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.spark.PySparkInterpreter",
+          "isDefault": false
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191221-235531_1402098799",
+      "dateCreated": "2019-12-21 23:55:31.000",
+      "dateStarted": "2019-12-22 00:33:13.006",
+      "dateFinished": "2019-12-22 00:35:42.986",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "",
+      "user": "",
+      "dateUpdated": "2019-12-22 00:33:12.000",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20191222-003312_932881901",
+      "dateCreated": "2019-12-22 00:33:12.000",
+      "dateStarted": "2019-12-22 00:36:35.000",
+      "dateFinished": "2019-12-22 00:36:35.000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    }
+  ],
+  "name": "Big Data Challenge Level 1a",
+  "id": "ee9eb67750d94764803a504f4c70d64d",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {},
+  "info": {}
+}
